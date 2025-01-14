@@ -9,18 +9,18 @@ AFRAME.registerComponent('info-panel', {
 
     this.movieInfo = {
       mgrButton: {
-        title: 'Metal Gear Rising: Revengeance',
-        imgEl: document.querySelector('#mgrImage'),
+        title: 'кот',
+        imgEl: document.querySelector('#котImage'),
         description: 'Metal Gear Rising: Revengeance is a hack and slash game developed by Platinum Games and published by Konami in 2013. Players control Raiden, a cybernetic soldier who battles the terrorist organization Desperado, which seeks to incite war for profit. The gameplay focuses on fast-paced combat using a powerful High-Frequency Blade, featuring a unique ”Blade Mode” that allows players to precisely control their strikes. The game‘s narrative explores themes of war, ideals, and personal identity as Raiden faces moral dilemmas and inner conflicts.'
       },
       furiButton: {
-        title: 'Furi',
-        imgEl: document.querySelector('#furiImage'),
+        title: 'крол',
+        imgEl: document.querySelector('#кролImage'),
         description: 'Furi is an indie action game released in 2016 that blends elements of hack and slash and third-person shooting. Players take on the role of a mysterious character who must defeat a series of unique bosses, each with their own mechanics and fighting styles. The game stands out for its stylish visual design and dynamic gameplay, where each encounter demands precision and quick reflexes from the player. The soundtrack plays a crucial role in enhancing the tension during battles, contributing to the overall immersive experience.'
       },
       nierButton: {
-        title: 'NieR: Automata',
-        imgEl: document.querySelector('#nierImage'),
+        title: 'шарлоттка',
+        imgEl: document.querySelector('#шарлотткаImage'),
         description: 'NieR: Automata is an action RPG released in 2017, serving as a sequel to the 2010 game NieR. Set in a post-apocalyptic world where humanity has been driven to the Moon due to a machine invasion, players control androids 2B and 9S as they fight to reclaim Earth for humanity. The game is renowned for its deep narrative that touches on philosophical questions about existence, free will, and the nature of humanity. Gameplay features a mix of hack and slash combat and RPG elements, along with various mechanics for fighting and exploration.'
       }
     };
