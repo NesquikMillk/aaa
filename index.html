@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Галерея</title>
     <meta name="description" content="Галерея">
+    <!-- Подключение необходимых скриптов -->
     <script src="aframe-master.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"></script>
     <script src="info-message.js"></script>
@@ -14,96 +15,66 @@
     <a-scene
       background="color: #212"
       environment
-      cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .raycastable"
+      cursor="rayOrigin: mouse; fuse: false"
+      raycaster="objects: .raycastable"
       info-message="htmlSrc: #messageText">
+
+      <!-- Загружаемые ассеты -->
       <a-assets>
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
 
-        <img id="кот" src="кот.jpg" crossorigin="anonymous"/>
-        <img id="котPoster" src="котSquare.jpg" crossorigin="anonymous"/>
+        <!-- Изображения для галереи -->
+        <img id="кот" src="кот.jpg" crossorigin="anonymous" />
+        <img id="котPoster" src="котSquare.jpg" crossorigin="anonymous" />
+        <img id="крол" src="крол.jpg" crossorigin="anonymous" />
+        <img id="кролPoster" src="кролSquare.jpg" crossorigin="anonymous" />
+        <img id="шарлоттка" src="шарлоттка.jpg" crossorigin="anonymous" />
+        <img id="шарлотткаPoster" src="шарлотткаSquare.jpg" crossorigin="anonymous" />
 
-        <img id="крол" src="крол.jpg" crossorigin="anonymous"/>
-        <img id="кролPoster" src="кролSquare.jpg" crossorigin="anonymous"/>
+        <!-- Mixin для общего оформления -->
+        <a-mixin id="frame" geometry="primitive: plane; width: 1.05; height: 1.55" material="color: white; shader: flat" 
+          animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter" 
+          animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"></a-mixin>
 
-        <img id="шарлоттка" src="шарлоттка.jpg" crossorigin="anonymous"/>
-        <img id="шарлотткаPoster" src="шарлотткаSquare.jpg" crossorigin="anonymous"/>
-        <a-mixin
-          id="frame"
-          geometry="primitive: plane; width: 1.05; height: 1.55"
-          material="color: white; shader: flat"
-          animation__scale="property: scale; to: 1.2 1.2 1.2; dur: 200; startEvents: mouseenter"
-          animation__scale_reverse="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-         ></a-mixin>
-         <a-mixin
-          id="poster"
-          geometry="primitive: plane; width: 1; height: 1.5"
-          material="color: white; shader: flat"
-          position="0 0 0.005"
-         ></a-mixin>
-         <a-mixin
-          id="movieImage"
-          geometry="primitive: plane; width: 1.5; height: 1.5"
-          material="shader: flat; transparent: true"
-          position="0 0.495 0.002"
-         ></a-mixin>
+        <a-mixin id="poster" geometry="primitive: plane; width: 1; height: 1.5" material="color: white; shader: flat" position="0 0 0.005"></a-mixin>
+        <a-mixin id="movieImage" geometry="primitive: plane; width: 1.5; height: 1.5" material="shader: flat; transparent: true" position="0 0.495 0.002"></a-mixin>
       </a-assets>
 
-      <a-entity
-        id="background"
-        position="0 0 0"
-        geometry="primitive: sphere; radius: 2.0"
-        material="color: red; side: back; shader: flat"
-        scale="0.001 0.001 0.001"
-        visible="false" class="raycastable">
+      <!-- Фон и камера -->
+      <a-entity id="background" position="0 0 0" geometry="primitive: sphere; radius: 2.0" material="color: red; side: back; shader: flat" 
+        scale="0.001 0.001 0.001" visible="false" class="raycastable"></a-entity>
+
+      <a-entity position="0 1.6 0" camera look-controls="magicWindowTrackingEnabled: false; touchEnabled: false; mouseEnabled: false">
+        <a-entity id="fadeBackground" geometry="primitive: sphere; radius: 2.5"></a-entity>
       </a-entity>
 
-      <a-entity
-        position="0 1.6 0"
-        camera look-controls="magicWindowTrackingEnabled: false; touchEnabled: false; mouseEnabled: false">
-        <a-entity
-          id="fadeBackground"
-          geometry="primitive: sphere; radius: 2.5">
-        </a-entity>
-      </a-entity>
-
-      <!-- Hand controls -->
+      <!-- Контроллеры -->
       <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .raycastable"></a-entity>
       <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .raycastable" line="color: #118A7E"></a-entity>
 
+      <!-- Интерфейс пользователя -->
       <a-entity id="ui" position="0 1.6 -2.5">
-        <!-- Poster menu -->
+        <!-- Меню с постерами -->
         <a-entity id="menu" highlight>
           <a-entity id="котButton" position="-2 0 0" mixin="frame" class="raycastable menu-button">
             <a-entity material="src: #кот" mixin="poster"></a-entity>
           </a-entity>
-
           <a-entity id="кролButton" position="0 0 0" mixin="frame" class="raycastable menu-button">
             <a-entity material="src: #крол" mixin="poster"></a-entity>
           </a-entity>
-
           <a-entity id="шарлотткаButton" position="2 0 0" mixin="frame" class="raycastable menu-button">
             <a-entity material="src: #шарлоттка" mixin="poster"></a-entity>
           </a-entity>
         </a-entity>
 
-        <!-- Info panel of the selected movie. -->
-        <a-entity
-          id="infoPanel"
-          position="0 0 0.5"
-          info-panel
-          visible="false"
-          scale="0.001 0.001 0.001"
-          geometry="primitive: plane; width: 1.5; height: 2.8"
-          material="color: #333333; shader: flat; transparent: false" class="raycastable">
+        <!-- Информационная панель -->
+        <a-entity id="infoPanel" position="0 0 0.5" info-panel visible="false" scale="0.001 0.001 0.001" 
+          geometry="primitive: plane; width: 1.5; height: 2.8" material="color: #333333; shader: flat; transparent: false" class="raycastable">
           <a-entity id="котImage" mixin="movieImage" material="src: #котPoster" visible="false" position="0 0.7 0"></a-entity>
           <a-entity id="кролImage" mixin="movieImage" material="src: #кролPoster" visible="false" position="0 0.7 0"></a-entity>
           <a-entity id="шарлотткаImage" mixin="movieImage" material="src: #шарлотткаPoster" visible="false" position="0 0.7 0"></a-entity>
-          <a-entity id="movieTitle"
-            position="-0.68 -0.25 0"
-            text="shader: msdf; anchor: left; width: 1.5; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: Ponyo (2003)"></a-entity>
-          <a-entity id="movieDescription"
-            position="-0.68 -0.35 0"
-            text="baseline: top; shader: msdf; anchor: left; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; width: 1.3; value: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></a-entity>
+          <a-entity id="movieTitle" position="-0.68 -0.25 0" text="shader: msdf; anchor: left; width: 1.5; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: Ponyo (2003)"></a-entity>
+          <a-entity id="movieDescription" position="-0.68 -0.35 0" text="baseline: top; shader: msdf; anchor: left; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; width: 1.3; value: Lorem ipsum dolor sit amet..."></a-entity>
         </a-entity>
       </a-entity>
     </a-scene>
